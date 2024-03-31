@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: iosis-tech-aleph-validator-node
+
+resources:
+  - deployment.yaml
+  - pvc.yaml
+
+configMapGenerator:
+  - name: validator-configmap
+    envs:
+      - validator-config.env
+    options:
+      disableNameSuffixHash: true
