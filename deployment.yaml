@@ -67,3 +67,28 @@ spec:
   selector:
     app: aleph-validator-node
   type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aleph-validator-node-ingress
+  annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: 0
+      nginx.org/websocket-services: "aleph-validator-node-svc"
+spec:
+  ingressClassName: nginx-ingress-prod
+  tls:
+    - hosts:
+        - ws.aleph-validator-node.iosis.tech
+      secretName: aleph-validator-node-tls
+  rules:
+    - host: ws.aleph-validator-node.iosis.tech
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: aleph-validator-node-svc
+                port:
+                  number: 9944

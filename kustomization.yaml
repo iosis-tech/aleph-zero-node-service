@@ -5,11 +5,20 @@ namespace: iosis-tech-aleph-validator-node
 
 resources:
   - deployment.yaml
-  - pvc.yaml
+  - certificates.yaml
+  - issuer.yaml
+  # - pvc.yaml
 
 configMapGenerator:
   - name: validator-configmap
     envs:
       - validator-config.env
+    options:
+      disableNameSuffixHash: true
+
+secretGenerator:
+  - name: letsencrypt-dns01-secret
+    envs:
+      - secret.env
     options:
       disableNameSuffixHash: true

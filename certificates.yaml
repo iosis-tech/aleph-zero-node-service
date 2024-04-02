@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: aleph-validator-node-cert
+spec:
+  secretName: aleph-validator-node-tls
+
+  dnsNames:
+    - ws.aleph-validator-node.iosis.tech
+  issuerRef:
+    name: letsencrypt-http01
+    kind: Issuer
