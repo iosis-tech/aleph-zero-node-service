@@ -15,10 +15,3 @@ configMapGenerator:
       - validator-config.env
     options:
       disableNameSuffixHash: true
-
-secretGenerator:
-  - name: letsencrypt-dns01-secret
-    envs:
-      - secret.env
-    options:
-      disableNameSuffixHash: true
