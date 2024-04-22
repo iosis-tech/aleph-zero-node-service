@@ -4,10 +4,10 @@ kind: Certificate
 metadata:
   name: aleph-validator-node-cert
 spec:
-  secretName: aleph-validator-node-tls
+  secretName: testnet-aleph-validator-node-tls
 
   dnsNames:
-    - ws.aleph-validator-node.iosis.tech
+    - ws.testnet-aleph-validator-node.iosis.tech
   issuerRef:
     name: letsencrypt-http01
     kind: Issuer
