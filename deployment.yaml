@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: aleph-validator-node
-        image: public.ecr.aws/p6e8q1z1/aleph-node:r-12.3
+        image: public.ecr.aws/p6e8q1z1/aleph-node:r-13.3
         envFrom:
           - configMapRef:
               name: validator-configmap
@@ -29,7 +29,7 @@ spec:
       initContainers:
       - name: get-chainspec
         image: busybox:1.28
-        command: ['sh', '-c', "wget --quiet -O /data/mainnet_chainspec.json https://raw.githubusercontent.com/Cardinal-Cryptography/aleph-node/r-12.3/bin/node/src/resources/mainnet_chainspec.json"]
+        command: ['sh', '-c', "wget --quiet -O /data/mainnet_chainspec.json https://raw.githubusercontent.com/Cardinal-Cryptography/aleph-node/r-13.3/bin/node/src/resources/mainnet_chainspec.json"]
         volumeMounts:
         - name: aleph-data
           mountPath: /data
