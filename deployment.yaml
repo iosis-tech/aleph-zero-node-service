@@ -14,13 +14,13 @@ spec:
     spec:
       containers:
       - name: aleph-validator-node
-        image: public.ecr.aws/p6e8q1z1/aleph-node:r-12.3
+        image: public.ecr.aws/p6e8q1z1/aleph-node:r-13.3
         envFrom:
           - configMapRef:
               name: validator-configmap
         ports:
-        - containerPort: 30533
-        - containerPort: 30543
+        - containerPort: 30633
+        - containerPort: 30643
         - containerPort: 9944
         - containerPort: 9615
         volumeMounts:
@@ -44,16 +44,16 @@ metadata:
   name: aleph-validator-node-svc
   annotations:
     kube-vip.io/loadbalancerIPs: "0.0.0.0"
-    kube-vip.io/hwaddr: "00:00:6C:32:98:76"
+    kube-vip.io/hwaddr: "00:00:6C:32:98:77"
     kube-vip.io/loadbalancerHostname: "aleph-validator-node"
 spec:
   ports:
-  - port: 30533
-    targetPort: 30533
+  - port: 30633
+    targetPort: 30633
     protocol: TCP
     name: port
-  - port: 30543
-    targetPort: 30543
+  - port: 30643
+    targetPort: 30643
     protocol: TCP
     name: validator-port
   - port: 9944
@@ -67,28 +67,28 @@ spec:
   selector:
     app: aleph-validator-node
   type: LoadBalancer
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: aleph-validator-node-ingress
-  annotations:
-      nginx.ingress.kubernetes.io/proxy-body-size: 0
-      nginx.org/websocket-services: "aleph-validator-node-svc"
-spec:
-  ingressClassName: nginx-ingress-prod
-  tls:
-    - hosts:
-        - ws.testnet-aleph-validator-node.iosis.tech
-      secretName: testnet-aleph-validator-node-tls
-  rules:
-    - host: ws.testnet-aleph-validator-node.iosis.tech
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: aleph-validator-node-svc
-                port:
-                  number: 9944
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: aleph-validator-node-ingress
+#   annotations:
+#       nginx.ingress.kubernetes.io/proxy-body-size: 0
+#       nginx.org/websocket-services: "aleph-validator-node-svc"
+# spec:
+#   ingressClassName: nginx-ingress-prod
+#   tls:
+#     - hosts:
+#         - ws.testnet-aleph-validator-node.iosis.tech
+#       secretName: testnet-aleph-validator-node-tls
+#   rules:
+#     - host: ws.testnet-aleph-validator-node.iosis.tech
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: aleph-validator-node-svc
+#                 port:
+#                   number: 9944
