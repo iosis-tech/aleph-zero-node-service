@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: aleph-validator-node
-        image: public.ecr.aws/p6e8q1z1/aleph-node:r-12.3
+        image: public.ecr.aws/p6e8q1z1/aleph-node:r-13.3
         envFrom:
           - configMapRef:
               name: validator-configmap
